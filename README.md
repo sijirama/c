@@ -1,1 +1,1 @@
-## Notes for studying C ( A fucking cool programming language)
+### Notes taken while studying the C programming language.
