@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
 
 type Node struct {
 	data int
@@ -31,7 +34,33 @@ func (li *LinkedList) display() {
 	current := li.Head
 
 	for current != nil {
-		fmt.Printf("%d\n"  , *&current.data)
+		fmt.Printf("%d\n", *&current.data)
 		current = current.next
 	}
+}
+
+//------------------------------------------------------------------------------
+
+type User struct {
+	name  string
+	phone int
+}
+
+func getUserMap(names []string, phoneNumbers []int) (map[string]User, error) {
+	var UserMap = make(map[string]User)
+	if len(names) != len(phoneNumbers) {
+		return nil, errors.New("Failure to create user map")
+	}
+
+	for i := 0; i < len(names); i++ {
+		name := names[i]
+		phonuNumber := phoneNumbers[i]
+
+		UserMap[name] = User{
+			name:  name,
+			phone: phonuNumber,
+		}
+	}
+
+	return UserMap, nil
 }
