@@ -12,10 +12,4 @@ func conat (first *string , second string) {
 
 func cool() {
     fmt.Println("Hello world")
-    var str string=  "Ilesanmi"
-    var copy string
-	for i := 0; i < len(str); i++ {
-        defer conat(&copy , string(str[i]))
-	}
-    fmt.Println(copy)
 }

@@ -6,7 +6,8 @@ import (
 
 
 func main() {
-    cool()
+    closure()
+    //cool()
  //    list :=  LinkedList{}
  //    list.append(40)
  //    list.append(40)
@@ -113,7 +114,7 @@ func (e userError) Yab() string {
 	return fmt.Sprintf("This guy %v is a good guy", e.name)
 }
 
-func (e userError) Error() string {
+func (e userError) r() string {
 	return fmt.Sprintf("This guy %v is a nigga", e.name)
 }
 
