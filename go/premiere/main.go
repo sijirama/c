@@ -9,6 +9,7 @@ import (
 var (
 	counter int
 	mu      sync.Mutex
+    wg sync.WaitGroup
 )
 
 type Stack[T any] struct {
@@ -23,8 +24,44 @@ func (stack *Stack[T]) Pop() T {
 	return stack.items[len(stack.items)-1]
 }
 
-func main() {
+func (stack Stack[T]) Print() {
+	for i := 0; i < len(stack.items); i++ {
+		fmt.Println(stack.items[i])
+	}
+}
 
+type Queue [T any] struct {
+    items []T
+    mux sync.RWMutex
+}
+
+func (q *Queue[T]) Enqueue (item T) {
+    q.mux.Lock()
+    defer q.mux.Unlock()
+    q.items = append(q.items, item)
+}
+
+func (q *Queue[T]) Display (){
+    for i := 0 ; i < len(q.items) ; i++ {
+        fmt.Println(q.items[i])
+    }
+}
+
+func inc[T any] (q *Queue[T] , i T){
+    wg.Add(1)
+    defer wg.Done()
+    q.Enqueue(i)
+}
+
+func main() {
+    q := Queue[int]{}
+    go inc(&q,20)
+    go inc(&q,40)
+    go inc(&q,50)
+    go inc(&q,60)
+    go inc(&q,70)
+    wg.Wait()
+    q.Display()
 }
 
 func spinner(delay time.Duration) {
