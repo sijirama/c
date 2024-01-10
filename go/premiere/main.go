@@ -2,37 +2,28 @@ package main
 
 import (
 	"fmt"
-	"os"
+	"sync"
 	"time"
 )
 
+var (
+	counter int
+	mu      sync.Mutex
+)
+
+type Stack[T any] struct {
+	items []T
+}
+
+func (stack *Stack[T]) append(data T) {
+	stack.items = append(stack.items, data)
+}
+
+func (stack *Stack[T]) Pop() T {
+	return stack.items[len(stack.items)-1]
+}
+
 func main() {
-    
-    go spinner(1000)
-    done := make(chan int)
-
-	go func() {
-		for i := 0; i < 100; i++ {
-            if i % 10 == 0 {
-                fmt.Println(i)
-            }
-
-            if(i == 50){
-                done <- i
-            }
-
-            time.Sleep(100 * time.Millisecond)
-		}
-	}()
-
-    v := <- done
-    fmt.Println("Main goroutine")
-    
-    fmt.Println("What the fuck is",v)
-
-    if v != 0 {
-        os.Exit(v)
-    }
 
 }
 
@@ -50,4 +41,16 @@ func fib(x int) int {
 		return x
 	}
 	return fib(x-1) + fib(x-2)
+}
+
+func worker(id int) {
+	//mu.Lock()         // Get control of the conveyor belt
+	//defer mu.Unlock() // Ensure the control is returned, even if something goes wrong
+
+	fmt.Printf("Worker %d: Placing item on the conveyor belt.\n", id)
+	counter++ // Modifying the shared resource (placing an item on the conveyor belt)
+	time.Sleep(100 * time.Millisecond)
+
+	fmt.Printf("Worker %d: Taking item from the conveyor belt.\n", id)
+	counter-- // Modifying the shared resource (taking an item from the conveyor belt)
 }
