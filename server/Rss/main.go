@@ -41,7 +41,8 @@ func main() {
     //NOTE: V1 router
     v1Router := chi.NewRouter()
 
-    v1Router.HandleFunc("/ready" , handlerReadiness)
+    //NOTE: V1 routes
+    v1Router.HandleFunc("/healthz" , handlerReadiness) 
 
     //NOTE: mount v1 router
     r.Mount("/v1" , v1Router)
