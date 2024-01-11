@@ -37,15 +37,15 @@ func main() {
 		MaxAge:           300, // Maximum value not ignored by any of major browsers
 	}))
 
+	//NOTE: V1 router
+	v1Router := chi.NewRouter()
 
-    //NOTE: V1 router
-    v1Router := chi.NewRouter()
+	//NOTE: V1 routes
+	v1Router.Get("/healthz", handlerReadiness)
+	v1Router.Get("/error", handlerError)
 
-    //NOTE: V1 routes
-    v1Router.HandleFunc("/healthz" , handlerReadiness) 
-
-    //NOTE: mount v1 router
-    r.Mount("/v1" , v1Router)
+	//NOTE: mount v1 router
+	r.Mount("/v1", v1Router)
 
 	//NOTE: http server
 	server := &http.Server{
