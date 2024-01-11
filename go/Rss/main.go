@@ -6,8 +6,8 @@ import (
 	"os"
 
 	"github.com/go-chi/chi/v5"
-	//"github.com/go-chi/chi/v5/middleware"
-	//"github.com/go-chi/cors"
+	"github.com/go-chi/chi/v5/middleware"
+	"github.com/go-chi/cors"
 	"github.com/joho/godotenv"
 )
 
@@ -26,7 +26,25 @@ func main() {
 	r := chi.NewRouter()
 
 	//NOTE: Middlewares
-	//r.Use(middleware.Logger)
+	r.Use(middleware.Logger)
+	r.Use(cors.Handler(cors.Options{
+		// AllowedOrigins:   []string{"https://foo.com"}, // Use this to allow specific origin hosts
+		AllowedOrigins:   []string{"https://*", "http://*"},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+		ExposedHeaders:   []string{"Link"},
+		AllowCredentials: false,
+		MaxAge:           300, // Maximum value not ignored by any of major browsers
+	}))
+
+
+    //NOTE: V1 router
+    v1Router := chi.NewRouter()
+
+    v1Router.HandleFunc("/ready" , handlerReadiness)
+
+    //NOTE: mount v1 router
+    r.Mount("/v1" , v1Router)
 
 	//NOTE: http server
 	server := &http.Server{
