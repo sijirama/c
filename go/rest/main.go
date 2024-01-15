@@ -1,16 +1,16 @@
 package main
 
 import (
-	"context"
+	//"context"
 	"errors"
 	"log"
 
-	"github.com/gofiber/fiber/v2"
+	//"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/mongo"
 
 	// db stuff
 	"github.com/joho/godotenv"
-	"go.mongodb.org/mongo-driver/bson"
+	//"go.mongodb.org/mongo-driver/bson"
 	"github.com/sijirama/x/go/rest/database"
 )
 
@@ -25,22 +25,23 @@ func main() {
 
 	defer database.CloseMongoDb(client)
 
-	app := fiber.New()
+	//app := fiber.New()
+    app := generateApp()
 
 
-	app.Post("/", func(c *fiber.Ctx) error {
-        // write a todo to the database
-
-        sameple := bson.M{"name":"sample todo"}    
-        coll := database.GetCollection( *client, "todos")
-
-        result , err := coll.InsertOne(context.TODO() , sameple)
-        if err != nil {
-            return c.Status(fiber.StatusInternalServerError).SendString("Error inserting Todo!")
-        }
-
-        return c.JSON(result)
-	})
+	// app.Post("/", func(c *fiber.Ctx) error {
+ //        // write a todo to the database
+	//
+ //        sameple := bson.M{"name":"sample todo"}    
+ //        coll := database.GetCollection( *client, "todos")
+	//
+ //        result , err := coll.InsertOne(context.TODO() , sameple)
+ //        if err != nil {
+ //            return c.Status(fiber.StatusInternalServerError).SendString("Error inserting Todo!")
+ //        }
+	//
+ //        return c.JSON(result)
+	// })
 
 	errr := app.Listen(":3000")
 	if errr != nil {

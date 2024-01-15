@@ -33,7 +33,7 @@ func CloseMongoDb(client *mongo.Client) error {
 	return nil
 }
 
-func GetCollection( client mongo.Client ,name string) *mongo.Collection{
+func GetCollection(client mongo.Client, name string) *mongo.Collection {
 	coll := client.Database("test").Collection(name)
-    return coll
+	return coll
 }
