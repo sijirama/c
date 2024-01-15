@@ -5,6 +5,9 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/sijirama/x/go/rest/database"
+	"github.com/sijirama/x/go/rest/models"
+	"go.mongodb.org/mongo-driver/bson"
+	//"go.mongodb.org/mongo-driver/bson"
 )
 
 type libraryDTO struct {
@@ -12,6 +15,23 @@ type libraryDTO struct {
     Address string `json:"address" bson:"address"`
 }
 
+//GET: Get all libraries route handler
+func GetLibraries (c *fiber.Ctx) error {
+    libraryCollection := database.GetCollection(*database.DBclient, "libraries")
+    cursor , error := libraryCollection.Find(context.TODO(), bson.M{} )
+    if error != nil {
+        return error
+    }
+
+    var libraries []models.Library
+    if err := cursor.All(context.TODO(), &libraries) ; err != nil {
+        return err
+    }
+
+    return c.JSON(libraries)
+}
+
+//POST: Create Library route handler
 func CreateLibrary(c *fiber.Ctx) error{
     nLibrary := new(libraryDTO)
 
