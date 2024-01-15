@@ -11,39 +11,42 @@ import (
 )
 
 type libraryDTO struct {
-    Name string `json:"name" bson:"name"`
-    Address string `json:"address" bson:"address"`
+	Name    string   `json:"name" bson:"name"`
+	Address string   `json:"address" bson:"address"`
+	Empty   []string `json:"no_exists" bson:"books"`
 }
 
-//GET: Get all libraries route handler
-func GetLibraries (c *fiber.Ctx) error {
-    libraryCollection := database.GetCollection(*database.DBclient, "libraries")
-    cursor , error := libraryCollection.Find(context.TODO(), bson.M{} )
-    if error != nil {
-        return error
-    }
+// GET: Get all libraries route handler
+func GetLibraries(c *fiber.Ctx) error {
+	libraryCollection := database.GetCollection(*database.DBclient, "libraries")
+	cursor, error := libraryCollection.Find(context.TODO(), bson.M{})
+	if error != nil {
+		return error
+	}
 
-    var libraries []models.Library
-    if err := cursor.All(context.TODO(), &libraries) ; err != nil {
-        return err
-    }
+	var libraries []models.Library
+	if err := cursor.All(context.TODO(), &libraries); err != nil {
+		return err
+	}
 
-    return c.JSON(libraries)
+	return c.JSON(libraries)
 }
 
-//POST: Create Library route handler
-func CreateLibrary(c *fiber.Ctx) error{
-    nLibrary := new(libraryDTO)
+// POST: Create Library route handler
+func CreateLibrary(c *fiber.Ctx) error {
+	nLibrary := new(libraryDTO)
 
-    if err := c.BodyParser(nLibrary); err != nil {
-        return err
-    }
+	if err := c.BodyParser(nLibrary); err != nil {
+		return err
+	}
 
-    libraryCollection := database.GetCollection(*database.DBclient, "libraries")
-    nDoc , error := libraryCollection.InsertOne(context.TODO() , nLibrary)
-    if error != nil {
-        return error
-    }
+	nLibrary.Empty = make([]string, 0)
 
-    return c.JSON(fiber.Map{"id":nDoc.InsertedID})
+	libraryCollection := database.GetCollection(*database.DBclient, "libraries")
+	nDoc, error := libraryCollection.InsertOne(context.TODO(), nLibrary)
+	if error != nil {
+		return error
+	}
+
+	return c.JSON(fiber.Map{"id": nDoc.InsertedID})
 }
