@@ -29,6 +29,7 @@ func CreateBook(c *fiber.Ctx) error {
 
 	//filter
 	filter := bson.D{{Key: "_id", Value: nBook.LibraryId}}
+    fmt.Println(filter)
 
 	nBookData := models.Book{
 		Author: nBook.Author,
@@ -36,13 +37,14 @@ func CreateBook(c *fiber.Ctx) error {
 		ISBN:   nBook.ISBN,
 	}
 
-	updatePayload := bson.M{"$push": bson.M{"books": nBookData}}
+    updatePayload := bson.D{{Key:"$push", Value: bson.M{"books": nBookData}}}
 
 	//update the library
-	_, err := Coll.UpdateOne(context.TODO(), filter, updatePayload)
+	res, err := Coll.UpdateOne(context.TODO(), filter, updatePayload)
 	if err != nil {
 		return nil
 	}
 
+    fmt.Println(res.UpsertedID)
 	return c.SendString("Book has been created successfully")
 }

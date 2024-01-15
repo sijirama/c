@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/sijirama/x/go/rest/database"
@@ -14,6 +15,18 @@ type libraryDTO struct {
 	Name    string   `json:"name" bson:"name"`
 	Address string   `json:"address" bson:"address"`
 	Empty   []string `json:"no_exists" bson:"books"`
+}
+
+func DeleteLibrary(c *fiber.Ctx) error {
+	docId := c.Params("id")
+	libraryCollection := database.GetCollection(*database.DBclient, "libraries")
+    filter := bson.M{"_id": docId}
+	res, err := libraryCollection.DeleteOne(context.TODO(), filter)
+
+	if err != nil {
+		panic(err)
+	}
+	return c.SendString(fmt.Sprint("Document has been deleted." , res.DeletedCount , " was deleted"))
 }
 
 // GET: Get all libraries route handler
