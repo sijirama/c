@@ -1,3 +1,5 @@
+use std::ops::Add;
+
 fn main() {
     let southern_germany = "Grüß Gott!";
     let japan = "ハロー・ワールド";
@@ -38,4 +40,8 @@ fn stuff() {
             println!("{}: {}", reference, result);
         }
     }
+}
+
+fn addi<T: Add<Output = T>>(i: T, j: T) -> T {
+    i + j
 }
