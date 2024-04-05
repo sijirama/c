@@ -3,6 +3,7 @@ import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
+import { ModalProvider } from "@/providers/ModalProvider";
 
 
 const fontSans = FontSans({
@@ -34,6 +35,7 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
+                    <ModalProvider />
                     {children}
                 </ThemeProvider>
             </body>
