@@ -19,7 +19,7 @@ export default function ImagesInReviewPage() {
                 if (index === 3) {
                     return (
 
-                        <div className='relative'>
+                        <div className='relative' key={index}>
                             <div className='bg-black bg-opacity-50 absolute inset-0 backdrop-blur-lg hover:backdrop-blur-md transition-all duration-400  z-10 flex justify-center items-center rounded-lg cursor-pointer'>
                                 <div className="text-white text-center font-semibold">See More</div>
                             </div>

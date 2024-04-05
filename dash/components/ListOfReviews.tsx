@@ -15,11 +15,11 @@ export default function ListOfReviews() {
         <section className={`w-full md:w-2/3 lg:w-3/5 text-black flex flex-col gap-2 overflow-y-auto`} style={{ maxHeight: 'calc(100vh - 12rem)' }} >
             <div className='h-full w-full'>
                 {
-                    townReviews.map((review) => {
+                    townReviews.map((review, index) => {
                         const time = new Date(review.timePosted)
                         let dateofpost = moment(time).fromNow()
                         return (
-                            <div className='w-full p-3 space-y-3 border-b border-zinc-300 '>
+                            <div className='w-full p-3 space-y-3 border-b border-zinc-300 ' key={index}>
 
                                 <div className='w-full flex items-center justify-between'>
                                     <div className='flex items-center gap-1.5'>

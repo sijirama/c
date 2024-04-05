@@ -9,7 +9,7 @@ import React from 'react'
 import { CiBookmark } from "react-icons/ci";
 import { GoShareAndroid } from "react-icons/go";
 
-export default function page() {
+export default function Page() {
     const {onOpen} = useModal()
     const onClick = () => {
         onOpen("addReview")
