@@ -13,9 +13,9 @@ export default function HomePageLeft() {
     }
 
     return (
-        <section className={`w-full md:w-1/2 h-full flex items-center justify-center text-black  `}>
-            <div className=' w-5/6 md:w-2/3 mx-auto p-2.5 md:p-4 space-y-4 md:space-y-6 text-center md:text-left'>
-                <p className='text-3xl md:text-6xl -tracking-wide font-bold'>Find a place you will love to live!</p>
+        <section className={`w-full md:w-1/2 h-full flex items-center justify-start text-black  `}>
+            <div className=' w-5/6 md:w-2/3 mx-auto md:mx-0 py-2.5 md:py-4 space-y-4 md:space-y-6 text-center md:text-left '>
+                <p className='text-3xl md:text-4xl lg:text-6xl -tracking-wide font-bold'>Find a place you will love to live!</p>
                 <p className='font-xs text-sm md:text-xl'>See through the lenses of people who have
                     lived or visited the neighbourhood you might
                     have in mind.</p>

@@ -41,7 +41,7 @@ export function AddReview() {
         <Dialog open={Open} onOpenChange={onClose}  >
             <DialogContent className="sm:max-w-[625px] sm:min-h-96" ref={reff}>
                 <DialogHeader>
-                    <DialogTitle>Add Review</DialogTitle>
+                    <DialogTitle className="text-center">Review Location</DialogTitle>
                     <DialogDescription>
                         Add a personal review here to the specified location
                     </DialogDescription>
