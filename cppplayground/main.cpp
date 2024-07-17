@@ -1,7 +1,10 @@
 
+#include "custom2.hpp"
 #include <any>
 #include <iostream>
 #include <memory>
+
+using namespace std;
 
 // void printer(std::shared_ptr<int> value) { std::cout << *value << std::endl;
 // }
@@ -35,8 +38,20 @@ void anyPrintSmart(std::any value) {
 }
 
 int main() {
-	std::variant<int, std::shared_ptr<int>> value;
-	auto value = std::make_shared<int>(32);
-	anyPrintSmart(value);
-	// printer(value);
+	// std::variant<int, std::shared_ptr<int>> value;
+	// auto pointer = std::make_shared<int>(32);
+	// auto pointer = "4244";
+
+	// // anyPrintSmart(value);
+	auto pointer = "-";
+	// // printer(value);
+	//
+	CustomAny value = CustomAny(pointer);
+
+	// const char *value = "hello world and everyone";
+	// string vall = string(value);
+
+	cout << value.getType().name() << endl;
+	cout << value.toString() << endl;
+	// cout << value.get<int>() << endl;
 }
