@@ -1,8 +1,9 @@
 
-#include "custom2.hpp"
+// #include "custom2.hpp"
 #include <any>
 #include <iostream>
 #include <memory>
+#include <strstream>
 
 using namespace std;
 
@@ -43,15 +44,21 @@ int main() {
 	// auto pointer = "4244";
 
 	// // anyPrintSmart(value);
-	auto pointer = "-";
+	// auto pointer = "-";
 	// // printer(value);
 	//
-	CustomAny value = CustomAny(pointer);
+	// CustomAny value = CustomAny(pointer);
 
 	// const char *value = "hello world and everyone";
 	// string vall = string(value);
 
-	cout << value.getType().name() << endl;
-	cout << value.toString() << endl;
+	// cout << value.getType().name() << endl;
+	// cout << value.toString() << endl;
 	// cout << value.get<int>() << endl;
+
+	std::ostrstream name;
+	name << "Sijibomi";
+	name << " Ilesanmi";
+	name << " Gbemileke \n";
+	cout << name.str();
 }
