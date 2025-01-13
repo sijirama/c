@@ -1,14 +1,9 @@
 const std = @import("std");
 
 pub fn main() !void {
-    const gpAllocator = std.heap.GeneralPurposeAllocator(.{}){};
-    const allocator = gpAllocator.allocator();
+    const val_1: i32 = 50;
+    const val_2: f64 = 3.14;
 
-    const arena = std.heap.ArenaAllocator.init(allocator);
-    defer arena.deinit();
-
-    const allocator2 = &arena.allocator;
-
-    const varU8 = try allocator2.alloc(u8, 20);
-    const tokens = std.ArrayList(u8).init(allocator);
+    const result = val_1 + val_2;
+    std.debug.print("{}\n", .{result});
 }
